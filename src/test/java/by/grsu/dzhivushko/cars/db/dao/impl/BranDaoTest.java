@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import by.grsu.dzhivushko.cars.db.dao.IDao;
 import by.grsu.dzhivushko.cars.db.model.Brand;
 
-public class BranDAOTest extends AbstractTest {
+public class BranDaoTest extends AbstractTest {
 	private static final IDao<Integer, Brand> dao = BrandDaoImpl.INSTANCE;
 
 	@Test
@@ -70,7 +70,7 @@ public class BranDAOTest extends AbstractTest {
 		int expectedCount = getRandomNumber(1, 5);
 		for (int i = 1; i <= expectedCount; i = i + 1) {
 			Brand entity = new Brand();
-			entity.setName("VW");
+			entity.setName("VW" + i); // generate some random meaningless name as it is just a test (the data can be unreal)
 			entity.setCreated(getCurrentTime());
 			entity.setUpdated(getCurrentTime());
 			dao.insert(entity);

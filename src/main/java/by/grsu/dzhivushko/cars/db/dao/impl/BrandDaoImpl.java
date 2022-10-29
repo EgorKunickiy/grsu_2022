@@ -67,7 +67,7 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				entity = rowToBrand(rs);
+				entity = rowToEntity(rs);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException("can't get Brand entity by id", e);
@@ -81,17 +81,17 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 		try (Connection c = createConnection()) {
 			ResultSet rs = c.createStatement().executeQuery("select * from brand");
 			while (rs.next()) {
-				Brand entity = rowToBrand(rs);
+				Brand entity = rowToEntity(rs);
 				entitiesList.add(entity);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("can't select Brand entitiesÏ", e);
+			throw new RuntimeException("can't select Brand entities", e);
 		}
 
 		return entitiesList;
 	}
 
-	private Brand rowToBrand(ResultSet rs) throws SQLException {
+	private Brand rowToEntity(ResultSet rs) throws SQLException {
 		Brand entity = new Brand();
 		entity.setId(rs.getInt("id"));
 		entity.setName(rs.getString("name"));

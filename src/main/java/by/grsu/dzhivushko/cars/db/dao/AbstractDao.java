@@ -46,7 +46,12 @@ public class AbstractDao {
 		try (Connection c = createConnection()) {
 			String sql = new String(Files.readAllBytes(Paths.get("docs/db/db.sql")));
 			Statement stmt = c.createStatement();
-			stmt.execute(sql);
+			stmt.executeUpdate(sql);
+			
+			ResultSet rs = c.getMetaData().getTables(null, null, null, null);
+			while (rs.next()) {
+				System.out.println("created table:" + rs.getString("TABLE_NAME"));
+			}
 		} catch (IOException | SQLException e) {
 			throw new RuntimeException("can't create DB schema", e);
 		}
