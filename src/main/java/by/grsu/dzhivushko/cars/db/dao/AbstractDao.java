@@ -21,14 +21,8 @@ public class AbstractDao {
 		DB_URL = String.format("jdbc:sqlite:%s/%s", DB_FOLDER, DB_NAME);
 	}
 
-	protected static Connection createConnection() throws RuntimeException {
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection(DB_URL);
-		} catch (SQLException e) {
-			throw new RuntimeException("can't create DB connection", e);
-		}
-		return conn;
+	protected static Connection createConnection() throws SQLException {
+		return DriverManager.getConnection(DB_URL);
 	}
 
 	protected Integer getGeneratedId(Connection c, String tableName, String idColumnName) throws SQLException {
@@ -43,18 +37,16 @@ public class AbstractDao {
 	}
 
 	protected Integer getGeneratedId(Connection c, String tableName) throws SQLException {
-		return getGeneratedId(c, "id", tableName);
+		return getGeneratedId(c, tableName, "id");
 	}
 
-	public static void createDbSchema() throws RuntimeException {
+	public static void createDbSchema() {
 		System.out.println(String.format("created DB %s", DB_NAME));
-		Connection conn = createConnection();
-		String sql;
-		try {
-			sql = new String(Files.readAllBytes(Paths.get("docs/db/db.sql")));
-			Statement stmt = conn.createStatement();
+
+		try (Connection c = createConnection()) {
+			String sql = new String(Files.readAllBytes(Paths.get("docs/db/db.sql")));
+			Statement stmt = c.createStatement();
 			stmt.execute(sql);
-			conn.close();
 		} catch (IOException | SQLException e) {
 			throw new RuntimeException("can't create DB schema", e);
 		}
