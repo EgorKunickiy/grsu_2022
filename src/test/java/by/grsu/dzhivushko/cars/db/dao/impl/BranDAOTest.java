@@ -1,7 +1,6 @@
 package by.grsu.dzhivushko.cars.db.dao.impl;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import by.grsu.dzhivushko.cars.db.dao.IDao;
