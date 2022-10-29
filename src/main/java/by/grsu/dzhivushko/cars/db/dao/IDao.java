@@ -10,6 +10,6 @@ public interface IDao<ID, TYPE> {
 	void delete(ID id);
 
 	TYPE getById(ID id);
-	
+
 	List<TYPE> getAll();
 }

@@ -13,11 +13,12 @@ import by.grsu.dzhivushko.cars.db.model.Model;
 
 public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 	public static final ModelDaoImpl INSTANCE = new ModelDaoImpl();
-	
+
 	private ModelDaoImpl() {
 		super();
 	}
 
+	@Override
 	public void insert(Model entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c
@@ -34,6 +35,7 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 
 	}
 
+	@Override
 	public void update(Model entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c.prepareStatement("update model set name=?, brand_id=?, updated=? where id=?");
@@ -48,6 +50,7 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 
 	}
 
+	@Override
 	public void delete(Integer id) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c.prepareStatement("delete from model where id=?");
@@ -58,6 +61,7 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 		}
 	}
 
+	@Override
 	public Model getById(Integer id) {
 		Model entity = null;
 		try (Connection c = createConnection()) {
@@ -76,6 +80,7 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 		return entity;
 	}
 
+	@Override
 	public List<Model> getAll() {
 		List<Model> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {

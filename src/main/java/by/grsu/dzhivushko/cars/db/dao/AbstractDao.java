@@ -47,7 +47,7 @@ public class AbstractDao {
 			String sql = new String(Files.readAllBytes(Paths.get("docs/db/db.sql")));
 			Statement stmt = c.createStatement();
 			stmt.executeUpdate(sql);
-			
+
 			ResultSet rs = c.getMetaData().getTables(null, null, null, null);
 			while (rs.next()) {
 				System.out.println("created table:" + rs.getString("TABLE_NAME"));

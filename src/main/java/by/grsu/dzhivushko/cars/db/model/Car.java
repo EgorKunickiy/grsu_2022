@@ -11,7 +11,7 @@ public class Car {
 	private Integer modelId;
 
 	private Timestamp created;
-	
+
 	private Timestamp updated;
 
 	public Integer getId() {

@@ -52,6 +52,6 @@ public class Model {
 	public void setUpdated(Timestamp updated) {
 		this.updated = updated;
 	}
-	
-	
+
+
 }

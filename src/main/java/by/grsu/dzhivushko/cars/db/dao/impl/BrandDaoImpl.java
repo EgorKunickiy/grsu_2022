@@ -22,6 +22,7 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 		super();
 	}
 
+	@Override
 	public void insert(Brand entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c.prepareStatement("insert into brand(name, created, updated) values(?,?,?)");
@@ -32,9 +33,10 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 			entity.setId(getGeneratedId(c, "brand"));
 		} catch (SQLException e) {
 			throw new RuntimeException("can't insert Brand entity", e);
-		} 
+		}
 	}
 
+	@Override
 	public void update(Brand entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c.prepareStatement("update brand set name=?, updated=? where id=?");
@@ -47,6 +49,7 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 		}
 	}
 
+	@Override
 	public void delete(Integer id) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c.prepareStatement("delete from brand where id=?");
@@ -58,6 +61,7 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 
 	}
 
+	@Override
 	public Brand getById(Integer id) {
 		Brand entity = null;
 		try (Connection c = createConnection()) {
@@ -76,6 +80,7 @@ public class BrandDaoImpl extends AbstractDao implements IDao<Integer, Brand> {
 		return entity;
 	}
 
+	@Override
 	public List<Brand> getAll() {
 		List<Brand> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {
