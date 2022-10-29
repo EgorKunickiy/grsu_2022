@@ -11,6 +11,8 @@ public class Car {
 	private Integer modelId;
 
 	private Timestamp created;
+	
+	private Timestamp updated;
 
 	public Integer getId() {
 		return id;
@@ -42,6 +44,14 @@ public class Car {
 
 	public void setCreated(Timestamp created) {
 		this.created = created;
+	}
+
+	public Timestamp getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Timestamp updated) {
+		this.updated = updated;
 	}
 
 	@Override

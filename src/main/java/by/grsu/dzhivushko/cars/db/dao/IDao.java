@@ -3,8 +3,7 @@ package by.grsu.dzhivushko.cars.db.dao;
 import java.util.List;
 
 public interface IDao<ID, TYPE> {
-
-	void insert(TYPE t);
+	void insert(TYPE t) ;
 
 	void update(TYPE t);
 
@@ -13,5 +12,4 @@ public interface IDao<ID, TYPE> {
 	TYPE getById(ID id);
 	
 	List<TYPE> getAll();
-
 }
