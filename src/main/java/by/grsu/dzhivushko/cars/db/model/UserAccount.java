@@ -2,14 +2,13 @@ package by.grsu.dzhivushko.cars.db.model;
 
 import java.sql.Timestamp;
 
-public class Model {
+public class UserAccount {
+
 	private Integer id;
 
-	private String name;
+	private String firstName;
 
-	private Integer brandId;
-
-	private Boolean actual;
+	private String lastName;
 
 	private Timestamp created;
 
@@ -23,20 +22,20 @@ public class Model {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public Integer getBrandId() {
-		return brandId;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setBrandId(Integer brandId) {
-		this.brandId = brandId;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Timestamp getCreated() {
@@ -53,14 +52,6 @@ public class Model {
 
 	public void setUpdated(Timestamp updated) {
 		this.updated = updated;
-	}
-
-	public Boolean getActual() {
-		return actual;
-	}
-
-	public void setActual(Boolean actual) {
-		this.actual = actual;
 	}
 
 }

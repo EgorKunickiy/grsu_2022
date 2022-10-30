@@ -22,11 +22,12 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 	public void insert(Model entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c
-					.prepareStatement("insert into model(name, brand_id, created, updated) values(?,?,?,?)");
+					.prepareStatement("insert into model(name, brand_id, actual, created, updated) values(?,?,?,?,?)");
 			pstmt.setString(1, entity.getName());
 			pstmt.setInt(2, entity.getBrandId());
-			pstmt.setTimestamp(3, entity.getCreated());
-			pstmt.setTimestamp(4, entity.getUpdated());
+			pstmt.setBoolean(3, entity.getActual());
+			pstmt.setTimestamp(4, entity.getCreated());
+			pstmt.setTimestamp(5, entity.getUpdated());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "model"));
 		} catch (SQLException e) {
@@ -38,11 +39,12 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 	@Override
 	public void update(Model entity) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("update model set name=?, brand_id=?, updated=? where id=?");
+			PreparedStatement pstmt = c.prepareStatement("update model set name=?, brand_id=?, actual=?, updated=? where id=?");
 			pstmt.setString(1, entity.getName());
 			pstmt.setInt(2, entity.getBrandId());
-			pstmt.setTimestamp(3, entity.getUpdated());
-			pstmt.setInt(4, entity.getId());
+			pstmt.setBoolean(3, entity.getActual());
+			pstmt.setTimestamp(4, entity.getUpdated());
+			pstmt.setInt(5, entity.getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("can't update Model entity", e);
@@ -101,6 +103,7 @@ public class ModelDaoImpl extends AbstractDao implements IDao<Integer, Model> {
 		entity.setId(rs.getInt("id"));
 		entity.setBrandId(rs.getInt("brand_id"));
 		entity.setName(rs.getString("name"));
+		entity.setActual(rs.getBoolean("actual"));
 		entity.setCreated(rs.getTimestamp("created"));
 		entity.setUpdated(rs.getTimestamp("updated"));
 		return entity;

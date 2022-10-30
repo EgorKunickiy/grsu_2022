@@ -14,8 +14,9 @@ public class ModelDaoTest extends AbstractTest {
 	@Test
 	public void testInsert() {
 		Model entity = new Model();
-		entity.setBrandId(saveBrand().getId());
+		entity.setBrandId(saveBrand("VW").getId());
 		entity.setName("Passat");
+		entity.setActual(true);
 		entity.setCreated(getCurrentTime());
 		entity.setUpdated(getCurrentTime());
 		modelDao.insert(entity);
@@ -25,27 +26,31 @@ public class ModelDaoTest extends AbstractTest {
 	@Test
 	public void testUpdate() {
 		Model entity = new Model();
-		entity.setBrandId(saveBrand().getId());
+		entity.setBrandId(saveBrand("VW").getId());
 		entity.setName("Passat");
+		entity.setActual(true);
 		entity.setCreated(getCurrentTime());
 		entity.setUpdated(getCurrentTime());
 		modelDao.insert(entity);
 
 		String newName = "Golf";
 		entity.setName(newName);
+		entity.setActual(false);
 		entity.setUpdated(getCurrentTime());
 		modelDao.update(entity);
 
 		Model updatedEntity = modelDao.getById(entity.getId());
-		Assertions.assertEquals(updatedEntity.getName(), newName);
+		Assertions.assertEquals(newName, updatedEntity.getName());
+		Assertions.assertEquals(false, updatedEntity.getActual());
 		Assertions.assertNotEquals(updatedEntity.getUpdated(), updatedEntity.getCreated());
 	}
 
 	@Test
 	public void testDelete() {
 		Model entity = new Model();
-		entity.setBrandId(saveBrand().getId());
+		entity.setBrandId(saveBrand("VW").getId());
 		entity.setName("Passat");
+		entity.setActual(true);
 		entity.setCreated(getCurrentTime());
 		entity.setUpdated(getCurrentTime());
 		modelDao.insert(entity);
@@ -58,8 +63,9 @@ public class ModelDaoTest extends AbstractTest {
 	@Test
 	public void testGetById() {
 		Model entity = new Model();
-		entity.setBrandId(saveBrand().getId());
+		entity.setBrandId(saveBrand("VW").getId());
 		entity.setName("Passat");
+		entity.setActual(true);
 		entity.setCreated(getCurrentTime());
 		entity.setUpdated(getCurrentTime());
 		modelDao.insert(entity);
@@ -77,8 +83,9 @@ public class ModelDaoTest extends AbstractTest {
 		int expectedCount = getRandomNumber(1, 5);
 		for (int i = 1; i <= expectedCount; i = i + 1) {
 			Model entity = new Model();
-			entity.setBrandId(saveBrand().getId());
+			entity.setBrandId(saveBrand("VW" + i).getId());
 			entity.setName("Passat" + i);
+			entity.setActual(true);
 			entity.setCreated(getCurrentTime());
 			entity.setUpdated(getCurrentTime());
 			modelDao.insert(entity);
@@ -87,9 +94,9 @@ public class ModelDaoTest extends AbstractTest {
 		Assertions.assertEquals(expectedCount, modelDao.getAll().size());
 	}
 
-	private Brand saveBrand() {
+	private Brand saveBrand(String name) {
 		Brand entity = new Brand();
-		entity.setName("VW");
+		entity.setName(name);
 		entity.setCreated(getCurrentTime());
 		entity.setUpdated(getCurrentTime());
 		brandDao.insert(entity);

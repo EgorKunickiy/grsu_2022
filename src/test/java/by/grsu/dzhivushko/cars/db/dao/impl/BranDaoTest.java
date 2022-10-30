@@ -33,7 +33,7 @@ public class BranDaoTest extends AbstractTest {
 		dao.update(entity);
 
 		Brand updatedEntity = dao.getById(entity.getId());
-		Assertions.assertEquals(updatedEntity.getName(), newName);
+		Assertions.assertEquals( newName, updatedEntity.getName());
 		Assertions.assertNotEquals(updatedEntity.getUpdated(), updatedEntity.getCreated());
 	}
 

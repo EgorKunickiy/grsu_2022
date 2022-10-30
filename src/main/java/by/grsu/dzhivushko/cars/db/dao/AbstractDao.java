@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.sqlite.SQLiteConfig;
+
 public class AbstractDao {
 	private static final String DB_FOLDER = "db-storage";
 	private static String DB_URL;
@@ -22,7 +24,9 @@ public class AbstractDao {
 	}
 
 	protected static Connection createConnection() throws SQLException {
-		return DriverManager.getConnection(DB_URL);
+		SQLiteConfig config = new SQLiteConfig();
+		config.enforceForeignKeys(true);
+		return DriverManager.getConnection(DB_URL, config.toProperties());
 	}
 
 	protected Integer getGeneratedId(Connection c, String tableName, String idColumnName) throws SQLException {
@@ -41,7 +45,7 @@ public class AbstractDao {
 	}
 
 	public static void createDbSchema() {
-		System.out.println(String.format("created DB %s", DB_NAME));
+		System.out.println(String.format("create DB %s", DB_NAME));
 
 		try (Connection c = createConnection()) {
 			String sql = new String(Files.readAllBytes(Paths.get("docs/db/db.sql")));
@@ -50,7 +54,7 @@ public class AbstractDao {
 
 			ResultSet rs = c.getMetaData().getTables(null, null, null, null);
 			while (rs.next()) {
-				System.out.println("created table:" + rs.getString("TABLE_NAME"));
+				System.out.println("created table " + rs.getString("TABLE_NAME"));
 			}
 		} catch (IOException | SQLException e) {
 			throw new RuntimeException("can't create DB schema", e);
@@ -62,4 +66,5 @@ public class AbstractDao {
 		File dbDataFile = new File(String.format("%s/%s", DB_FOLDER, DB_NAME));
 		dbDataFile.delete();
 	}
+
 }

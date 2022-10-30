@@ -1,32 +1,33 @@
 CREATE TABLE brand (
-	id integer PRIMARY KEY AUTOINCREMENT,
-	name varchar,
-	created datetime,
-	updated datetime
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR NOT NULL UNIQUE,
+	created datetime NOT NULL,
+	updated datetime NOT NULL
 );
 
 CREATE TABLE model (
-	id integer PRIMARY KEY AUTOINCREMENT,
-	name varchar,
-	brand_id integer,
-	actual integer,
-	created datetime,
-	updated datetime
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR NOT NULL,
+	brand_id INTEGER NOT NULL REFERENCES brand(id),
+	actual INTEGER NOT NULL,
+	created datetime NOT NULL,
+	updated datetime NOT NULL
 );
 
 CREATE TABLE car (
-	id integer PRIMARY KEY AUTOINCREMENT,
-	owner_id integer,
-	model_id integer,
-	vin varchar,
-	created datetime,
-	updated datetime
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	owner_id INTEGER REFERENCES user_account(id),
+	model_id INTEGER NOT NULL REFERENCES model(id),
+	vin VARCHAR NOT NULL UNIQUE,
+	created datetime NOT NULL,
+	updated datetime NOT NULL
 );
 
 CREATE TABLE user_account (
-	id integer PRIMARY KEY AUTOINCREMENT,
-	first_name varchar,
-	last_name varchar,
-	created datetime,
-	updated datetime
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	first_name VARCHAR NOT NULL,
+	last_name VARCHAR NOT NULL,
+	created datetime NOT NULL,
+	updated datetime NOT NULL
 );
+

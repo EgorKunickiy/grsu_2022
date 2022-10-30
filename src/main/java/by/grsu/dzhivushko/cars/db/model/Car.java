@@ -10,6 +10,16 @@ public class Car {
 
 	private Integer modelId;
 
+	private Integer ownerId;
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+
 	private Timestamp created;
 
 	private Timestamp updated;
